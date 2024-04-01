@@ -7,7 +7,7 @@ export const AuthContextProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(undefined);
 
   useEffect(() => {
-    // onAuthStateChange
+    // onAuthStateChanged
 
     setTimeout(() => {
       setIsAuthenticated(true);
@@ -26,21 +26,20 @@ export const AuthContextProvider = ({ children }) => {
   const register = async (email, password, username, profileUrl) => {
     try {
     } catch (e) {}
-
-    return (
-      <AuthContext.Provider
-        value={{ user, isAuthenticated, login, register, logout }}
-      >
-        {children}
-      </AuthContext.Provider>
-    );
   };
+  return (
+    <AuthContext.Provider
+      value={{ user, isAuthenticated, login, register, logout }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };
 export const useAuth = () => {
   const value = useContext(AuthContext);
 
   if (!value) {
-    throw new Error("useAuth must be used within an AuthContextProvider");
+    throw new Error("useAuth must be wrapped inside AuthContextProvider");
   }
   return value;
 };

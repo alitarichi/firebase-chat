@@ -1,4 +1,4 @@
-import {createContext, useEffect, useState} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 
 export const AuthContext = createContext();
 
@@ -32,4 +32,19 @@ const register = async (email, password, username, profileUrl) => {
     }catch(e) {
         
     }
+
+return (
+    <AuthContext.Provider value={{user,isAuthenticated, login, register, logout}}>
+        {children}
+    </AuthContext.Provider>
+)
+}
+
+export const useAuth = () => {
+    const value = useContext(AuthContext);
+
+    if(!value) {
+        throw new Error("useAuth must be used within an AuthContextProvider");
+    }
+    return value;
 }

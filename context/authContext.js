@@ -4,11 +4,14 @@ export const AuthContext = createContext();
 
 export const AuthContextProvider = ({children}) => {
     const [user, setUser] = useState(null);
-    const [isAuthenticated, setIsAuthenticated] = useState(undefined)
-}
+    const [isAuthenticated, setIsAuthenticated] = useState(undefined);
 
 useEffect(() => {
     // onAuthStateChange
+
+    setTimeout(() => {
+        setIsAuthenticated(true);
+    }, 3000);
 }, [])
 
 const login = async (email, password) => {
@@ -39,7 +42,7 @@ return (
     </AuthContext.Provider>
 )
 }
-
+}
 export const useAuth = () => {
     const value = useContext(AuthContext);
 

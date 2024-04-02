@@ -13,7 +13,7 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { StatusBar } from "expo-status-bar";
-import { Octicons } from "@expo/vector-icons";
+import { Feather, Octicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import Loading from "../components/Loading";
 
@@ -68,6 +68,20 @@ export default function SignUp() {
               style={{ height: hp(7) }}
               className="flex-row gap-4 px-4 bg-neutral-100 items-center rounded-xl "
             >
+              <Feather name="user" size={hp(2.7)} color="gray" />
+              <TextInput
+                onChangeText={(value) => (usernameRef.current = value)}
+                style={{ fontSize: hp(2) }}
+                className="flex-1 font-semibold text-neutral-700"
+                placeholder="Username"
+                placeholderTextColor={"gray"}
+              />
+            </View>
+
+            <View
+              style={{ height: hp(7) }}
+              className="flex-row gap-4 px-4 bg-neutral-100 items-center rounded-xl "
+            >
               <Octicons name="mail" size={hp(2.7)} color="gray" />
               <TextInput
                 onChangeText={(value) => (emailRef.current = value)}
@@ -89,6 +103,20 @@ export default function SignUp() {
                 className="flex-1 font-semibold text-neutral-700"
                 placeholder="Password"
                 secureTextEntry
+                placeholderTextColor={"gray"}
+              />
+            </View>
+
+            <View
+              style={{ height: hp(7) }}
+              className="flex-row gap-4 px-4 bg-neutral-100 items-center rounded-xl "
+            >
+              <Feather name="image" size={hp(2.7)} color="gray" />
+              <TextInput
+                onChangeText={(value) => (profileRef.current = value)}
+                style={{ fontSize: hp(2) }}
+                className="flex-1 font-semibold text-neutral-700"
+                placeholder="Profile url"
                 placeholderTextColor={"gray"}
               />
             </View>

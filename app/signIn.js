@@ -7,7 +7,7 @@ import {
   Pressable,
   Alert,
 } from "react-native";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -15,9 +15,11 @@ import {
 import { StatusBar } from "expo-status-bar";
 import { Octicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import Loading from "../components/Loading";
 
 export default function SignIn() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const emailRef = useRef("");
   const passwordRef = useRef("");
@@ -90,19 +92,27 @@ export default function SignIn() {
                 Forgot Password?
               </Text>
             </View>
-
-            <TouchableOpacity
-              onPress={() => handleLogin()}
-              style={{ height: hp(6.5) }}
-              className="bg-indigo-500 rounded-xl justify-center items-center"
-            >
-              <Text
-                style={{ fontSize: hp(2.7) }}
-                className="text-white font-bold tracking-wider"
-              >
-                Sign In
-              </Text>
-            </TouchableOpacity>
+            {/* submit button */}
+            <View>
+              {loading ? (
+                <View className="flex-row justify-center">
+                  <Loading size={hp(6.5)} />
+                </View>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => handleLogin()}
+                  style={{ height: hp(6.5) }}
+                  className="bg-indigo-500 rounded-xl justify-center items-center"
+                >
+                  <Text
+                    style={{ fontSize: hp(2.7) }}
+                    className="text-white font-bold tracking-wider"
+                  >
+                    Sign In
+                  </Text>
+                </TouchableOpacity>
+              )}
+            </View>
 
             {/* sign up text */}
             <View className="flex-row justify-center">

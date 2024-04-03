@@ -21,6 +21,7 @@ export const AuthContextProvider = ({ children }) => {
       if (user) {
         setIsAuthenticated(true);
         setUser(user);
+        updateUserData(user.uid);
       } else {
         setIsAuthenticated(false);
         setUser(null);
@@ -29,13 +30,30 @@ export const AuthContextProvider = ({ children }) => {
     return unsub;
   }, []);
 
+  const updateUserData = async (userId) => {
+    const docRef = doc(db, "users", userId);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+    }
+    let data = docSnap.data();
+    setUser({
+      ...user,
+      username: data.username,
+      profileUrl: data.profileUrl,
+      userId: data.userId,
+    });
+  };
+
   const login = async (email, password) => {
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
       return { success: true };
     } catch (e) {
+      let msg = e.message;
       if (msg.includes("(auth/invalid-email)")) msg = "Invalid email";
-      return { success: false, msg: e.message };
+      if (msg.includes("(auth/invalid-credential)")) msg = "Invalid Credential";
+      return { success: false, msg };
     }
   };
 

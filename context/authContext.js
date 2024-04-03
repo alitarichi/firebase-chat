@@ -1,5 +1,12 @@
-import { onAuthStateChanged } from "firebase/auth";
+import {
+  onAuthStateChanged,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { auth, db } from "../firebaseConfig";
 
 export const AuthContext = createContext();
 
@@ -10,6 +17,7 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     // onAuthStateChanged
     const unsub = onAuthStateChanged(auth, (user) => {
+      console.log("got user:", user);
       if (user) {
         setIsAuthenticated(true);
         setUser(user);
@@ -23,16 +31,47 @@ export const AuthContextProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-    } catch (e) {}
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      return { success: true };
+    } catch (e) {
+      if (msg.includes("(auth/invalid-email)")) msg = "Invalid email";
+      return { success: false, msg: e.message };
+    }
   };
 
   const logout = async () => {
     try {
-    } catch (e) {}
+      await signOut(auth);
+      return { success: true };
+    } catch (e) {
+      return { success: false, msg: e.message, error: e };
+    }
   };
   const register = async (email, password, username, profileUrl) => {
     try {
-    } catch (e) {}
+      const response = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log("response.user :", response?.user);
+
+      //setUser(response?.user);
+      //setIsAuthenticated(true);
+
+      await setDoc(doc(db, "users", response?.user?.uid), {
+        username,
+        profileUrl,
+        userId: response?.user?.uid,
+      });
+      return { success: true, data: response?.user };
+    } catch (e) {
+      let msg = e.message;
+      if (msg.includes("(auth/invalid-email)")) msg = "Invalid email";
+      if (msg.includes("(auth/eamil-already-in-use)"))
+        msg = "This eamil is already in use";
+      return { success: false, msg: e.message };
+    }
   };
   return (
     <AuthContext.Provider

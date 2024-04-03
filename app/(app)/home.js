@@ -3,12 +3,12 @@ import React from "react";
 import { useAuth } from "../../context/authContext";
 
 export default function Home() {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const handleLogout = async () => {
     await logout();
   };
   return (
-    <View>
+    <View className="flex-1 bg-white">
       {/*<Button title="Sign Out" />*/}
       <Pressable onPress={handleLogout}>
         <Text>Sign Out</Text>

@@ -5,6 +5,7 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Image } from "expo-image";
 
 const ios = Platform.OS === "ios";
 export default function HomeHeader() {
@@ -29,7 +30,17 @@ export default function HomeHeader() {
         elevation: 8,
       }}
     >
-      <Text>HomeHeader</Text>
+      <View>
+        <Text style={{ fontSize: hp(3), color: "white" }}>Chats</Text>
+      </View>
+
+      <View>
+        <Image
+        style={{height: hp(4.3), aspectRatio: 1, borderRadius: 100}}
+        source={}
+        placeholder={blurhash}
+        transition={500} />
+      </View>
     </View>
   );
 }

@@ -15,12 +15,18 @@ import {
   MenuTrigger,
 } from "react-native-popup-menu";
 import { MenuItem } from "./CustomMenuItems";
+import { Feather, MaterialIcons } from "@expo/vector-icons";
 
 const ios = Platform.OS === "ios";
 export default function HomeHeader() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   const { top } = useSafeAreaInsets();
+  const handleProfile = () => {};
+
+  const handleLogout = async () => {
+    await logout();
+  };
   return (
     <View
       style={{
@@ -61,11 +67,50 @@ export default function HomeHeader() {
               transition={500}
             />
           </MenuTrigger>
-          <MenuOptions>
-            <MenuItem />
+          <MenuOptions
+            customStyles={{
+              optionsContainer: {
+                borderRadius: 10,
+                borderCurve: "continuous",
+                marginTop: 40,
+                marginLeft: -30,
+                backgroundColor: "white",
+                shadowOpacity: 0.2,
+                shadowOffset: { width: 0, height: 0 },
+                width: 160,
+              },
+            }}
+          >
+            <MenuItem
+              text="Profile"
+              action={handleProfile}
+              value={null}
+              icon={<Feather name="user" size={hp(2.5)} color={"#737373"} />}
+            />
+            <Divider />
+            <MenuItem
+              text="Logout"
+              action={handleLogout}
+              value={null}
+              icon={
+                <MaterialIcons name="logout" size={hp(2.5)} color={"#FF0000"} />
+              }
+            />
           </MenuOptions>
         </Menu>
       </View>
     </View>
   );
 }
+
+const Divider = () => {
+  return (
+    <View
+      style={{
+        padding: 1,
+        width: "100%",
+        backgroundColor: "#E2E8F0",
+      }}
+    />
+  );
+};

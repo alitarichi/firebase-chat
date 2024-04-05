@@ -17,8 +17,10 @@ export const MenuItem = ({ text, action, value, icon }) => {
           alignItems: "center",
         }}
       >
-        <Text>icon</Text>
-        <Text>text</Text>
+        <Text style={{ fontSize: hp(1.7), fontWeight: 600, color: "#777" }}>
+          {text}
+        </Text>
+        {icon}
       </View>
     </MenuOption>
   );

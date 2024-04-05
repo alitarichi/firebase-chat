@@ -9,7 +9,7 @@ export const MenuItem = ({ text, action, value, icon }) => {
   return (
     <MenuOption onSelect={() => action(value)}>
       <View
-        sstyle={{
+        style={{
           flexDirection: "row",
           paddingHorizontal: 4,
           paddingVertical: 1,

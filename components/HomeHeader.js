@@ -14,6 +14,7 @@ import {
   MenuOption,
   MenuTrigger,
 } from "react-native-popup-menu";
+import { MenuItem } from "./CustomMenuItems";
 
 const ios = Platform.OS === "ios";
 export default function HomeHeader() {
@@ -61,15 +62,7 @@ export default function HomeHeader() {
             />
           </MenuTrigger>
           <MenuOptions>
-            <MenuOption onSelect={() => alert(`Save`)} text="save" />
-            <MenuOption onSelect={() => alert(`Delete`)}>
-              <Text style={{ color: "red" }}>Delete</Text>
-            </MenuOption>
-            <MenuOption
-              onSelect={() => alert(`Not called`)}
-              disabled={true}
-              text="Disabled"
-            />
+            <MenuItem />
           </MenuOptions>
         </Menu>
       </View>

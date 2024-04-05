@@ -45,12 +45,33 @@ export default function HomeHeader() {
       </View>
 
       <View>
-        <Image
-          style={{ height: hp(4.3), aspectRatio: 1, borderRadius: 100 }}
-          source={user?.profileUrl}
-          placeholder={blurhash}
-          transition={500}
-        />
+        <Menu>
+          <MenuTrigger
+            customStyles={{
+              triggerWrapper: {
+                // trigger Wrapper styles
+              },
+            }}
+          >
+            <Image
+              style={{ height: hp(4.3), aspectRatio: 1, borderRadius: 100 }}
+              source={user?.profileUrl}
+              placeholder={blurhash}
+              transition={500}
+            />
+          </MenuTrigger>
+          <MenuOptions>
+            <MenuOption onSelect={() => alert(`Save`)} text="save" />
+            <MenuOption onSelect={() => alert(`Delete`)}>
+              <Text style={{ color: "red" }}>Delete</Text>
+            </MenuOption>
+            <MenuOption
+              onSelect={() => alert(`Not called`)}
+              disabled={true}
+              text="Disabled"
+            />
+          </MenuOptions>
+        </Menu>
       </View>
     </View>
   );

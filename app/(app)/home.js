@@ -7,6 +7,8 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import ChatList from "../../components/ChatList";
+import { query, where } from "firebase/firestore";
+import { usersRef } from "../../firebaseConfig";
 
 export default function Home() {
   const { logout, user } = useAuth();
@@ -17,6 +19,15 @@ export default function Home() {
   }, []);
   const getUsers = async () => {
     // fetch users
+    const q = query(usersRef, where("userId", "!=", user?.uid));
+
+    const querySnapshot = await getDocs(q);
+    let data = [];
+    querySnapshot.forEach((doc) => {
+      data.push({ ...doc.data() });
+    });
+
+    setUsers(data);
   };
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>

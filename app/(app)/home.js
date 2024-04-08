@@ -11,6 +11,7 @@ import ChatList from "../../components/ChatList";
 export default function Home() {
   const { logout, user } = useAuth();
   const [users, setUsers] = useState([1, 2, 3]);
+
   useEffect(() => {
     if (user?.uid) getUsers();
   }, []);
@@ -18,13 +19,15 @@ export default function Home() {
     // fetch users
   };
   return (
-    <View className="flex-1 bg-white">
+    <View style={{ flex: 1, backgroundColor: "white" }}>
       <StatusBar style="light" />
       {users.length > 0 ? (
         <ChatList users={users} />
       ) : (
-        <View className="flex items-center" style={{ top: hp(30) }}>
-          <ActivityIndicator size="large" color="#00C7FF" />
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <ActivityIndicator size="large" />
         </View>
       )}
     </View>
